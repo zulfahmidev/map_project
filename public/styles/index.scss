@@ -1,0 +1,247 @@
+html, body {
+    margin: 0;
+    font-family: Poppins;
+}
+
+#wrapper {
+    #alert-wrapper {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 97;
+
+        .alert {
+            width: 300px;
+            background-color: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0.2rem 0.2rem 16px rgba($color: #000000, $alpha: 0.15);
+
+            .head {
+                padding: .5rem 1rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                .icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 64px;
+                    height: 64px;
+                    font-size: 26px;
+                    border-radius: 50%;
+                    color: royalblue;
+                    background-color: rgb(224, 231, 255);
+                }
+            }
+            .body {
+                .title {
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+                .subtitle {
+                    font-size: 12px;
+                }
+                .action {
+                    padding: .25rem 1rem;
+                    border-radius: 4px;
+                    color: #fff;
+                    margin: 1rem 0;
+                    display: inline-block;
+                    background-color: royalblue;
+                    cursor: pointer;
+                    
+                    &:hover {
+                        background-color: rgb(69, 103, 207);
+                    }
+                }
+            }
+        }
+    }
+    .flyingSidebarToggle {
+        position: fixed;
+        left: 2rem;
+        top: .75rem;
+        z-index: 98;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: .2rem;
+        border-radius: 50%;
+        background-color: royalblue;
+        cursor: pointer;
+        color: #fff;
+        box-shadow: 0.2rem 0.2rem 16px rgba($color: #000000, $alpha: 0.15);
+        transition: .3s;
+        
+        &.hide {
+            left: -4.75rem;
+        }
+
+        &:hover {
+            background-color: rgb(69, 103, 207);
+        }
+    }
+
+    #sidebar {
+        width: 300px;
+        height: 100vh;
+        background-color: white;
+        position: fixed;
+        box-shadow: 0.2rem 0.2rem 16px rgba($color: #000000, $alpha: 0.15);
+        z-index: 99;
+        left: -300px;
+        transition: .3s;
+
+        &.show {
+            left: 0px;
+        }
+
+        .header {
+            height: 4rem;
+            background-color: royalblue;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            align-items: center;
+            color: #fff;
+            font-size: 21px;
+
+            .sidebarToggle {
+                width: 2.5rem;
+                height: 2.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: .2rem;
+                border-radius: 50%;
+                background-color: rgba($color: #ffffff, $alpha: .05);
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgb(69, 103, 207);
+                }
+            }
+        }
+
+        .body {
+            padding: 0 1rem;
+
+            .tool-group {
+                margin-top: 1rem;
+                padding-bottom: .5rem;
+                border-bottom: 1px solid #eee;
+
+                .title {
+                    font-weight: bold;
+                    font-size: 12px;
+                    // color: #707070;
+                }
+
+                .subtitle {
+                    // font-weight: bold;
+                    font-size: 11px;
+                    color: #707070;
+                    margin-bottom: .5rem;
+                }
+
+                .devider {
+                    display: flex;
+                    align-items: center;
+                    .text {
+                        font-size: 11px;
+                        color: #707070;
+                    }
+                    .line {
+                        width: 100%;
+                        margin-left: .5rem;
+                        border-bottom: 1px solid #ccc;
+                    }
+                }
+
+                .tool {
+                    padding: 0.5rem;
+                    width: 100%;
+                    box-sizing: border-box;
+                    border-radius: 4px;
+                    background-color: #eee;
+                    text-align: center;
+                    margin-bottom: .5rem;
+                    cursor: pointer;
+                    transition: .3s;
+                    
+                    .text {
+                        transition: .3s;
+                        font-size: 14px;
+                    }
+                    .cancel {
+                        transition: .3s;
+                        font-size: 0px;
+                    }
+
+                    &:hover {
+                        background-color: #eaeaea;
+                    }
+
+                    &.active {
+                        background-color: royalblue;
+                        color: #fff;
+                        .text {
+                            font-size: 10px;
+                            opacity: .5;
+                        }
+                        .cancel {
+                            font-size: 14px;
+                        }
+
+                        &:hover {
+                            background-color: rgb(69, 103, 207);
+                        }
+                    }
+
+                    &.disabled {
+                        color: #707070;
+                        cursor: default;
+                        &:hover {
+                            background-color: #eee;
+                        }
+                    }
+                }
+
+                .list {
+                    .item {
+                        padding: 0.5rem .75rem;
+                        width: 100%;
+                        box-sizing: border-box;
+                        border-radius: 4px;
+                        background-color: #eee;
+                        font-size: 11px;
+                        margin: .5rem 0;
+                        display: flex;
+                        justify-content: space-between;
+
+                        .close {
+                            // padding: 0 .25rem;
+                            color: #707070;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: #313131;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #demo {
+        width: 100%;
+        height: 100vh;
+    }
+}

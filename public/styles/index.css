@@ -1,0 +1,301 @@
+html, body {
+  margin: 0;
+  font-family: Poppins;
+}
+
+#wrapper #alert-wrapper {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 97;
+}
+
+#wrapper #alert-wrapper .alert {
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  -webkit-box-shadow: 0.2rem 0.2rem 16px rgba(0, 0, 0, 0.15);
+          box-shadow: 0.2rem 0.2rem 16px rgba(0, 0, 0, 0.15);
+}
+
+#wrapper #alert-wrapper .alert .head {
+  padding: .5rem 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#wrapper #alert-wrapper .alert .head .icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 64px;
+  height: 64px;
+  font-size: 26px;
+  border-radius: 50%;
+  color: royalblue;
+  background-color: #e0e7ff;
+}
+
+#wrapper #alert-wrapper .alert .body .title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#wrapper #alert-wrapper .alert .body .subtitle {
+  font-size: 12px;
+}
+
+#wrapper #alert-wrapper .alert .body .action {
+  padding: .25rem 1rem;
+  border-radius: 4px;
+  color: #fff;
+  margin: 1rem 0;
+  display: inline-block;
+  background-color: royalblue;
+  cursor: pointer;
+}
+
+#wrapper #alert-wrapper .alert .body .action:hover {
+  background-color: #4567cf;
+}
+
+#wrapper .flyingSidebarToggle {
+  position: fixed;
+  left: 2rem;
+  top: .75rem;
+  z-index: 98;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: .2rem;
+  border-radius: 50%;
+  background-color: royalblue;
+  cursor: pointer;
+  color: #fff;
+  -webkit-box-shadow: 0.2rem 0.2rem 16px rgba(0, 0, 0, 0.15);
+          box-shadow: 0.2rem 0.2rem 16px rgba(0, 0, 0, 0.15);
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#wrapper .flyingSidebarToggle.hide {
+  left: -4.75rem;
+}
+
+#wrapper .flyingSidebarToggle:hover {
+  background-color: #4567cf;
+}
+
+#wrapper #sidebar {
+  width: 300px;
+  height: 100vh;
+  background-color: white;
+  position: fixed;
+  -webkit-box-shadow: 0.2rem 0.2rem 16px rgba(0, 0, 0, 0.15);
+          box-shadow: 0.2rem 0.2rem 16px rgba(0, 0, 0, 0.15);
+  z-index: 99;
+  left: -300px;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#wrapper #sidebar.show {
+  left: 0px;
+}
+
+#wrapper #sidebar .header {
+  height: 4rem;
+  background-color: royalblue;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 1rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
+  font-size: 21px;
+}
+
+#wrapper #sidebar .header .sidebarToggle {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: .2rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+#wrapper #sidebar .header .sidebarToggle:hover {
+  background-color: #4567cf;
+}
+
+#wrapper #sidebar .body {
+  padding: 0 1rem;
+}
+
+#wrapper #sidebar .body .tool-group {
+  margin-top: 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid #eee;
+}
+
+#wrapper #sidebar .body .tool-group .title {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#wrapper #sidebar .body .tool-group .subtitle {
+  font-size: 11px;
+  color: #707070;
+  margin-bottom: .5rem;
+}
+
+#wrapper #sidebar .body .tool-group .devider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#wrapper #sidebar .body .tool-group .devider .text {
+  font-size: 11px;
+  color: #707070;
+}
+
+#wrapper #sidebar .body .tool-group .devider .line {
+  width: 100%;
+  margin-left: .5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+#wrapper #sidebar .body .tool-group .tool {
+  padding: 0.5rem;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 4px;
+  background-color: #eee;
+  text-align: center;
+  margin-bottom: .5rem;
+  cursor: pointer;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+#wrapper #sidebar .body .tool-group .tool .text {
+  -webkit-transition: .3s;
+  transition: .3s;
+  font-size: 14px;
+}
+
+#wrapper #sidebar .body .tool-group .tool .cancel {
+  -webkit-transition: .3s;
+  transition: .3s;
+  font-size: 0px;
+}
+
+#wrapper #sidebar .body .tool-group .tool:hover {
+  background-color: #eaeaea;
+}
+
+#wrapper #sidebar .body .tool-group .tool.active {
+  background-color: royalblue;
+  color: #fff;
+}
+
+#wrapper #sidebar .body .tool-group .tool.active .text {
+  font-size: 10px;
+  opacity: .5;
+}
+
+#wrapper #sidebar .body .tool-group .tool.active .cancel {
+  font-size: 14px;
+}
+
+#wrapper #sidebar .body .tool-group .tool.active:hover {
+  background-color: #4567cf;
+}
+
+#wrapper #sidebar .body .tool-group .tool.disabled {
+  color: #707070;
+  cursor: default;
+}
+
+#wrapper #sidebar .body .tool-group .tool.disabled:hover {
+  background-color: #eee;
+}
+
+#wrapper #sidebar .body .tool-group .list .item {
+  padding: 0.5rem .75rem;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 4px;
+  background-color: #eee;
+  font-size: 11px;
+  margin: .5rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#wrapper #sidebar .body .tool-group .list .item .close {
+  color: #707070;
+  cursor: pointer;
+}
+
+#wrapper #sidebar .body .tool-group .list .item .close:hover {
+  color: #313131;
+}
+
+#wrapper #demo {
+  width: 100%;
+  height: 100vh;
+}
+/*# sourceMappingURL=index.css.map */
