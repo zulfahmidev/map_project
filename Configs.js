@@ -7,4 +7,7 @@ exports.configs = {
     PUBLIC_PATH: path.join(__dirname, 'public/'),
     VIEWS_PATH: path.join(__dirname, 'views/'),
     CONTROLLERS_PATH: path.join(__dirname, 'controllers/'),
+
+    DB_SERVER: "127.0.0.1:27017",
+    DB_NAME: "TEST_PROJECT",
 }

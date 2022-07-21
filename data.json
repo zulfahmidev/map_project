@@ -1,0 +1,30 @@
+{
+    "nodes": [
+        {
+            "id": 1,
+            "position": {
+                "lat": 0,
+                "lng": 0
+            }
+        }, {
+            "id": 2,
+            "position": {
+                "lat": 1,
+                "lng": 1
+            }
+        }
+    ],
+    "graphs": [
+        {
+            "id": 1,
+            "from_node_id": 1,
+            "to_node_id": 2,
+            "path": [
+                {
+                    "lat": 0.5,
+                    "lng": 0.5
+                }
+            ]
+        }
+    ]
+}

@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const {HomeController} = require('./controllers/HomeController.js');
-const {MarkerController} = require('./controllers/API/MarkerController.js');
+const { HomeController } = require('./controllers/HomeController.js');
+const { NodeController } = require('./controllers/API/NodeController.js');
+const { GraphController } = require('./controllers/API/GraphController.js');
 
 router.get('/', HomeController.index);
-router.get('/api/markers', MarkerController.index);
+router.get('/api/node', NodeController.index);
+router.post('/api/node', NodeController.insert);
+
+router.get('/api/graph', GraphController.index);
+router.post('/api/graph', GraphController.insert);
+router.post('/api/graph/:id', GraphController.update);
 
 exports.router = router;
