@@ -2,6 +2,7 @@
 let nodeDefaultIcon = null;
 let nodeSelectedIcon = null;
 let pointDefaultIcon = null;
+let pointSelectedIcon = null;
 
 function initIcons() {
     nodeDefaultIcon = {
@@ -30,6 +31,15 @@ function initIcons() {
         fillColor: "#1abc9c",
         strokeOpacity: 1.0,
         strokeColor: "#1abc9c",
+        strokeWeight: 1.0,
+        scale: 5.0
+    }
+    pointSelectedIcon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillOpacity: 0.5,
+        fillColor: "black",
+        strokeOpacity: 1.0,
+        strokeColor: "black",
         strokeWeight: 1.0,
         scale: 5.0
     }

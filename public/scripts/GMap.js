@@ -31,7 +31,7 @@ const GMap = function(selector, dlat, dlng) {
     this.init = () => {
 
         this.on('click', (e) => {
-        
+            
             if (mode.has('create_node')) {
                 Nodes.createNode(e.latLng);
                 Toast.fire({

@@ -25,6 +25,24 @@ const Graphs = new function() {
         })
     }
 
+    this.getNearPosition = (position) => {
+        let node = Nodes.getNearNode(position);
+
+        node.getNode().setIcon(nodeSelectedIcon);
+        
+        let nearPoint = null;
+        let distance = 0;
+
+        node.getGraphs().forEach(graph => {
+            let np = graph.getNearPoint(position);
+            if (np.distance <= distance || distance == 0) {
+                distance = np.distance;
+                nearPoint = np.point;
+            }
+        })
+        return nearPoint;
+    }
+
     this.initGraphs = () => {
         graphs = [];
         axios.get('http://localhost:8080/api/graph').then(({data}) => {

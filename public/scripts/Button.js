@@ -41,6 +41,8 @@ function Button(el, onActivated = null, onDeactivated = null, isActivated = fals
     buttons.push(this);
 }
 
+
+// Button Create Node
 let btnCreateNode = new Button("create_node", () => {
     mode.activateMode('create_node');
 
@@ -54,6 +56,8 @@ let btnCreateNode = new Button("create_node", () => {
     map.getMap().setOptions({draggableCursor:'grab'});
 })
 
+
+// Button Connect Node
 let btnConnectNode = new Button("connect_node", () => {
     mode.activateMode('connect_node');
 
@@ -67,6 +71,8 @@ let btnConnectNode = new Button("connect_node", () => {
     map.getMap().setOptions({draggableCursor:'grab'});
 })
 
+
+// Button Remove Node
 let btnRemoveNode = new Button("remove_node", () => {
     mode.activateMode('remove_node');
 
@@ -80,6 +86,7 @@ let btnRemoveNode = new Button("remove_node", () => {
     map.getMap().setOptions({draggableCursor:'grab'});
 })
 
+// Button Set Visible Graph
 let btnGraphVisible = new Button("show_graph", () => {
     mode.activateMode('show_graph');
     Nodes.setVisible(true);
@@ -89,3 +96,15 @@ let btnGraphVisible = new Button("show_graph", () => {
     Nodes.setVisible(false);
     Graphs.setVisible(false);
 })
+
+// Button Set Visible Graph
+// let btnSetPosition = new Button("set_position", () => {
+//     mode.activateMode('set_position');
+
+//     btnSetDestination.deactivated();
+//     mode.deactivateMode('set_destination');
+
+//     map.getMap().setOptions({draggableCursor:'pointer'});
+// }, () => {
+//     map.getMap().setOptions({draggableCursor:'grab'});
+// })

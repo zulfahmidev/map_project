@@ -32,6 +32,19 @@ const Nodes = new function() {
         })
     }
 
+    this.getNearNode = (position) => {
+        let nearNode = null;
+        let distance = 0;
+        nodes.forEach(node => {
+            let newDistance = Utils.distanceTo(node.getPosition().lat, node.getPosition().lng, position.lat, position.lng);
+            if (newDistance <= distance || distance == 0) {
+                distance = newDistance;
+                nearNode = node;
+            }
+        })
+        return nearNode;
+    }
+
     this.setVisible = (visible) => {
         nodes.forEach(node => {
             node.getNode().setVisible(visible);

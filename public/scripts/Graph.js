@@ -37,6 +37,22 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
         isShow = true;
     }
 
+    this.getNearPoint = (position) => {
+        let nearPoint = null;
+        let distance = 0;
+        points.forEach(point => {
+            let newDistance = Utils.distanceTo(point.position.lat(), point.position.lng(), position.lat, position.lng);
+            if (newDistance <= distance || distance == 0) {
+                distance = newDistance;
+                nearPoint = point;
+            }
+        })
+        return {
+            point: nearPoint,
+            distance
+        };
+    }
+
     this.addPoint = (position) => {
         path.push(position);
         
