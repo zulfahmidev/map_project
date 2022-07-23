@@ -1,4 +1,5 @@
 let nodeSelected = null;
+
 // Toast Declarated
 const Toast = Swal.mixin({
     toast: true,
@@ -11,6 +12,7 @@ const Toast = Swal.mixin({
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
+
 
 function main() {
 

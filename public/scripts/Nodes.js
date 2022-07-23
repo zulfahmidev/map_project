@@ -15,6 +15,29 @@ const Nodes = new function() {
         })
     }
 
+    this.removeNode = (id) => {
+        axios.delete('http://localhost:8080/api/node/'+id).then(({data}) => {
+            if (data.status == 200) {
+                nodes.filter(v => {
+                    if (v.getId() == id) {
+                        v.getGraphs().forEach(g => {
+                            Graphs.removeGraph(g.getId());
+                        })
+                        v.getNode().setMap(null);
+                        return false;
+                    }
+                    return true;
+                })
+            }
+        })
+    }
+
+    this.setVisible = (visible) => {
+        nodes.forEach(node => {
+            node.getNode().setVisible(visible);
+        });
+    }
+
     this.initNodes = () => {
         nodes = [];
         axios.get('http://localhost:8080/api/node').then(({data}) => {

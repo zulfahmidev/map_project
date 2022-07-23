@@ -3,6 +3,8 @@ const graphs = [];
 const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
     let points = [];
 
+    let isShow = false;
+
     let graph = new google.maps.Polyline({
         path,
         map: map.getMap(),
@@ -10,6 +12,30 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
         strokeOpacity: 1.0,
         strokeWeight: 2,
     });
+
+    this.setVisible = (visible) => {
+        visible = (visible) ? map.getMap() : null;
+        if (!isShow) {
+            graph.setMap(visible);
+        }
+        points.forEach(p => {
+            p.setMap(visible)
+        })
+    }
+    
+    this.show = () => {
+        graph.setOptions({strokeColor: 'red'});
+        graph.setVisible(true);
+        isShow = true;
+    }
+
+    this.hide = () => {
+        graph.setOptions({strokeColor: '#1abc9c'});
+        if (mode.has('show_graph')) {
+            graph.setVisible(true);
+        }
+        isShow = true;
+    }
 
     this.addPoint = (position) => {
         path.push(position);
@@ -31,12 +57,12 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
         return id;
     }
 
-    this.getFrom = () => {
-        return Nodes.getNode(from_node_id);
+    this.hasNode = (node_id) => {
+        return (from_node_id == node_id || to_node_id == node_id);
     }
     
-    this.getTo = () => {
-        return Nodes.getNode(to_node_id);
+    this.getTo = (node_id) => {
+        return (node_id == from_node_id) ? Nodes.getNode(to_node_id) : Nodes.getNode(from_node_id);
     }
 
     this.setTo = (id) => {
@@ -60,6 +86,12 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
         }
     }
     
+    this.getDistance = () => {
+        let n1 = Nodes.getNode(from_node_id).getPosition();
+        let n2 = Nodes.getNode(to_node_id).getPosition();
+        return Utils.distanceTo(n1.lat, n1.lng, n2.lat, n2.lng);
+    }
+    
     path.forEach(position => {
         points.push(new google.maps.Marker({
             position,
@@ -67,5 +99,11 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
             icon: pointDefaultIcon,
         }))
     })
+    
+    if (mode.has('show_graph')) {
+        this.setVisible(true);
+    }else {
+        this.setVisible(false);
+    }
     return this;
 }

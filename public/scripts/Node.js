@@ -7,8 +7,21 @@ const Node = function(id, position) {
         position,
         icon: nodeDefaultIcon,
         map: map.getMap(),
+        title: id,
         tag: { id }
     });
+
+    if (mode.has('show_graph')) {
+        node.setVisible(true);
+    }else {
+        node.setVisible(false);
+    }
+
+    this.showInfo = () => {
+        let content = `ID: ${id}`;
+        let infowindow = new google.maps.InfoWindow({content});
+        infowindow.open(map.getMap(),node);
+    }
 
     this.getNode = () => {
         return node;
@@ -22,11 +35,32 @@ const Node = function(id, position) {
         return id;
     }
 
+    this.getGraphs = () => {
+        return Graphs.getGraphsByNode(this.getId());
+    }
+
     this.onClick = (callback) => {
-        return node.addListener('click', callback);
+        return node.addListener('mousedown', callback);
     }
 
     this.onClick((e) => {
+        if (e.domEvent.button == 2) {
+            this.showInfo();
+        }
+
+        if (mode.has('remove_node')) {
+            if (confirm('Apakah anda yakin ingin menghapus node dengan id: ' + this.getId())) {
+                Nodes.removeNode(this.getId());
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Node id "' + this.getId() + '" berhasil di hapus'
+                })
+                mode.deactivateMode('remove_node');
+                btnRemoveNode.deactivated();
+                return this;
+            }
+        }
+
         if (mode.has("connect_node")) {            
             if (nodeSelected == null) {
                 Toast.fire({
@@ -55,11 +89,18 @@ const Node = function(id, position) {
                 nodeSelected.node.getNode().setIcon(nodeDefaultIcon)
                 nodeSelected = null;
                 
-                mode.selectMode();
+                mode.deactivateMode('connect_node');
+                btnConnectNode.deactivated();
                 
             }
 
         }
     })
+
+    // Dijkstra Data
+    this.f = 0;
+    this.g= 0;
+    this.h = 0;
+    this.previous = undefined;
     return this;
 }

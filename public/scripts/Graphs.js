@@ -1,12 +1,28 @@
 const Graphs = new function() {
     let graphs = [];
 
-    this.getGraphs = () => {
+    this.getGraphs = (array = false) => {
         return graphs;
     }
 
     this.createGraph = (from_node_id, path = [], to_node_id = null) => {
-        return new Graph(from_node_id, path, to_node_id);
+        let graph = new Graph(from_node_id, path, to_node_id);
+        graphs.push(graph);
+        return graph;
+    }
+
+    this.removeGraph = (id) => {
+        axios.delete('http://localhost:8080/api/graph/' + id).then(({data}) => {
+            if (data.status == 200) {
+                graphs.filter(v => {
+                    if (v.getId() == id) {
+                        v.setVisible(false);
+                        return false;
+                    }
+                    return true;
+                })
+            }
+        })
     }
 
     this.initGraphs = () => {
@@ -20,6 +36,12 @@ const Graphs = new function() {
             }
         });
     }
+    
+    this.setVisible = (visible) => {
+        graphs.forEach(graph => {
+            graph.setVisible(visible);
+        });
+    }
 
     this.getGraph = (id) => {
         let result = null;
@@ -29,6 +51,15 @@ const Graphs = new function() {
         return result;
     }
 
+    this.getGraphsByNode = (node_id) => {
+        let result = [];
+        graphs.forEach(graph => {
+            if (graph.hasNode(node_id)) result.push(graph);
+        });
+        return result;
+    }
+
     this.initGraphs();
+    this.setVisible(false);
     return this;
 }

@@ -34,12 +34,12 @@ const GMap = function(selector, dlat, dlng) {
         
             if (mode.has('create_node')) {
                 Nodes.createNode(e.latLng);
-                btnCreateNode.deactivated();
                 Toast.fire({
                     icon: 'success',
                     title: 'Node Created'
                 })
-                mode.selectMode();
+                mode.deactivateMode('create_node');
+                btnCreateNode.deactivated();
             }
     
             if (mode.has('connect_node') && nodeSelected) {

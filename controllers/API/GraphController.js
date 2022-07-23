@@ -20,6 +20,16 @@ exports.GraphController = new function() {
             });
         })
     }
+
+    this.destroy = (req, res) => {
+        Graph.deleteOne({_id: req.params.id}).then((data) => {
+            res.json({
+                message: "Success",
+                status: 200,
+                body: data
+            });
+        })
+    }
     
     this.update = (req, res) => {
         console.log(req.body)

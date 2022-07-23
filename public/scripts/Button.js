@@ -20,14 +20,13 @@ function Button(el, onActivated = null, onDeactivated = null, isActivated = fals
     this.activated = () => {
         isActivated = true;
         element.addClass('active');
-        mode.selectMode(el);
-        // if (onActivated) onActivated(element);
+        if (onActivated) onActivated(element);
     }
     
     this.deactivated = () => {
         isActivated = false;
         element.removeClass('active');
-        // if (onDeactivated) onDeactivated(element);
+        if (onDeactivated) onDeactivated(element);
     }
     
     this.onClick(() => {
@@ -35,13 +34,58 @@ function Button(el, onActivated = null, onDeactivated = null, isActivated = fals
             this.activated();
         }else {
             this.deactivated();
-            mode.selectMode();
+            mode.deactivateMode(el);
         }
     })
 
     buttons.push(this);
 }
 
-let btnCreateNode = new Button("create_node")
+let btnCreateNode = new Button("create_node", () => {
+    mode.activateMode('create_node');
 
-let btnConnectNode = new Button("connect_node")
+    btnConnectNode.deactivated();
+    btnRemoveNode.deactivated();
+    mode.deactivateMode('connect_node');
+    mode.deactivateMode('remove_node');
+
+    map.getMap().setOptions({draggableCursor:'pointer'});
+}, () => {
+    map.getMap().setOptions({draggableCursor:'grab'});
+})
+
+let btnConnectNode = new Button("connect_node", () => {
+    mode.activateMode('connect_node');
+
+    btnCreateNode.deactivated();
+    btnRemoveNode.deactivated();
+    mode.deactivateMode('create_node');
+    mode.deactivateMode('remove_node');
+
+    map.getMap().setOptions({draggableCursor:'pointer'});
+}, () => {
+    map.getMap().setOptions({draggableCursor:'grab'});
+})
+
+let btnRemoveNode = new Button("remove_node", () => {
+    mode.activateMode('remove_node');
+
+    btnCreateNode.deactivated();
+    btnConnectNode.deactivated();
+    mode.deactivateMode('create_node');
+    mode.deactivateMode('connect_node');
+
+    map.getMap().setOptions({draggableCursor:'pointer'});
+}, () => {
+    map.getMap().setOptions({draggableCursor:'grab'});
+})
+
+let btnGraphVisible = new Button("show_graph", () => {
+    mode.activateMode('show_graph');
+    Nodes.setVisible(true);
+    Graphs.setVisible(true);
+}, () => {
+    mode.deactivateMode('show_graph');
+    Nodes.setVisible(false);
+    Graphs.setVisible(false);
+})

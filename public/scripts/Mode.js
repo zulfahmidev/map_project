@@ -5,42 +5,57 @@ const mode = new function() {
 
     this.addMode = (name, onActivated, onDeactivated) => {
         modes.push({
-            name, onActivated, onDeactivated
+            name, onActivated, onDeactivated, isActive: false,
         })
     }
 
     this.has = (name) => {
-        return this.getMode() == name;
+        let result = false;
+        modes.forEach((m, i) => {
+            if (m.name == name) {
+                if (m.isActive) result = true;
+            }
+        });
+        return result;
     }
 
     this.selectMode = (name = null) => {
-        modeActive = null;
         modes.forEach((m, i) => {
             if (m.name == name) {
-                modeActive = i;
+                m.isActive = true;
                 m.onActivated();
             }else {
-                this.deactivated(m);
+                m.isActive = false;
+                m.onDeactivated(false);
             }
         });
     }
 
-    this.deactivated = (mode) => {
-        buttons.forEach(button => {
-            if (button.getName() == mode.name) {
-                button.deactivated();
-                mode.onDeactivated(false);
+    this.activateMode = (name) => {
+        modes.forEach((m, i) => {
+            if (m.name == name) {
+                m.isActive = true;
+                m.onActivated();
             }
-        })
+        });
+    }
+    
+    this.deactivateMode = (name) => {
+        modes.forEach((m, i) => {
+            if (m.name == name) {
+                m.isActive = false;
+                m.onDeactivated();
+            }
+        });
     }
 
     this.getModes = () => {
         return modes;
     }
 
-    this.getMode = () => {
-        return (modeActive != null) ? modes[modeActive].name : null;
-    }
+    // this.getMode = () => {
+    //     return (modeActive != null) ? modes[modeActive].name : null;
+    // }
 
     return this;
 };
@@ -56,13 +71,12 @@ mode.addMode("create_node", (isSendMsg = true) => {
     map.getMap().setOptions({draggableCursor:'pointer'});
 }, (isSendMsg = true) => {
     // On Deactivated
-    if (isSendMsg) {
-        Toast.fire({
-            icon: 'info',
-            title: 'Mode "Create Node" is deactivated.'
-        })
-    }
-    map.getMap().setOptions({draggableCursor:'grab'});
+    // if (isSendMsg) {
+    //     Toast.fire({
+    //         icon: 'info',
+    //         title: 'Mode "Create Node" is deactivated.'
+    //     })
+    // }
 })
 
 mode.addMode("connect_node", (isSendMsg = true) => {
@@ -73,19 +87,45 @@ mode.addMode("connect_node", (isSendMsg = true) => {
             title: 'Mode "Connect Node" is activated.'
         })
     }
-    map.getMap().setOptions({draggableCursor:'pointer'});
+}, (isSendMsg = true) => {
+    // On Deactivated
+    
+    if (nodeSelected) {
+        nodeSelected.graph.getGraph().setMap(null);
+        nodeSelected = null;
+    }
+})
+
+mode.addMode("remove_node", (isSendMsg = true) => {
+    // On Activated
+    if (isSendMsg) {
+        Toast.fire({
+            icon: 'info',
+            title: 'Mode "Remove Node" is activated.'
+        })
+    }
+}, (isSendMsg = true) => {
+    // On Deactivated
+    // if (nodeSelected) {
+    //     nodeSelected.graph.getGraph().setMap(null);
+    //     nodeSelected = null;
+    // }
+})
+
+mode.addMode("show_graph", (isSendMsg = true) => {
+    // On Activated
+    if (isSendMsg) {
+        Toast.fire({
+            icon: 'info',
+            title: 'Mode "Show Graph" is activated.'
+        })
+    }
 }, (isSendMsg = true) => {
     // On Deactivated
     if (isSendMsg) {
         Toast.fire({
             icon: 'info',
-            title: 'Mode "Connect Node" is deactivated.'
+            title: 'Mode "Show Graph" is deactivated.'
         })
-    }
-    map.getMap().setOptions({draggableCursor:'grab'});
-    
-    if (nodeSelected) {
-        nodeSelected.graph.getGraph().setMap(null);
-        nodeSelected = null;
     }
 })
