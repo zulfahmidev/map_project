@@ -97,14 +97,26 @@ let btnGraphVisible = new Button("show_graph", () => {
     Graphs.setVisible(false);
 })
 
+// Button Set Position
+let btnSetPosition = new Button("set_position", () => {
+    mode.activateMode('set_position');
+
+    btnSetDestination.deactivated();
+    mode.deactivateMode('set_destination');
+
+    map.getMap().setOptions({draggableCursor:'pointer'});
+}, () => {
+    map.getMap().setOptions({draggableCursor:'grab'});
+})
+
 // Button Set Visible Graph
-// let btnSetPosition = new Button("set_position", () => {
-//     mode.activateMode('set_position');
+let btnSetDestination = new Button("set_destination", () => {
+    mode.activateMode('set_destination');
 
-//     btnSetDestination.deactivated();
-//     mode.deactivateMode('set_destination');
+    btnSetPosition.deactivated();
+    mode.deactivateMode('set_position');
 
-//     map.getMap().setOptions({draggableCursor:'pointer'});
-// }, () => {
-//     map.getMap().setOptions({draggableCursor:'grab'});
-// })
+    map.getMap().setOptions({draggableCursor:'pointer'});
+}, () => {
+    map.getMap().setOptions({draggableCursor:'grab'});
+})

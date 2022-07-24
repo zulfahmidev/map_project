@@ -26,7 +26,7 @@ const mode = new function() {
                 m.onActivated();
             }else {
                 m.isActive = false;
-                m.onDeactivated(false);
+                if (m.onDeactivated) m.onDeactivated(false);
             }
         });
     }
@@ -35,7 +35,7 @@ const mode = new function() {
         modes.forEach((m, i) => {
             if (m.name == name) {
                 m.isActive = true;
-                m.onActivated();
+                if (m.onActivated) m.onActivated();
             }
         });
     }
@@ -44,7 +44,7 @@ const mode = new function() {
         modes.forEach((m, i) => {
             if (m.name == name) {
                 m.isActive = false;
-                m.onDeactivated();
+                if (m.onDeactivated) m.onDeactivated(false);
             }
         });
     }
@@ -129,3 +129,23 @@ mode.addMode("show_graph", (isSendMsg = true) => {
         })
     }
 })
+
+mode.addMode("set_position", (isSendMsg = true) => {
+    // On Activated
+    if (isSendMsg) {
+        Toast.fire({
+            icon: 'info',
+            title: 'Mode "Set User Position" is activated.'
+        })
+    }
+});
+
+mode.addMode("set_destination", (isSendMsg = true) => {
+    // On Activated
+    if (isSendMsg) {
+        Toast.fire({
+            icon: 'info',
+            title: 'Mode "Set Destination Position" is activated.'
+        })
+    }
+});

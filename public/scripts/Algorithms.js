@@ -17,8 +17,8 @@ function reset() {
 
 function Dijkstra(from, to) {
     reset();
-    node_start = Nodes.getNode(from);
-    node_end = Nodes.getNode(to);
+    node_start = Nodes.getNearNode(from);
+    node_end = Nodes.getNearNode(to);
     let openSet = [];
     let closedSet = [];
 

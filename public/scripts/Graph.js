@@ -15,7 +15,7 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
 
     this.setVisible = (visible) => {
         visible = (visible) ? map.getMap() : null;
-        if (!isShow) {
+        if (!isShow || visible == true) {
             graph.setMap(visible);
         }
         points.forEach(p => {
@@ -25,7 +25,7 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
     
     this.show = () => {
         graph.setOptions({strokeColor: 'red'});
-        graph.setVisible(true);
+        graph.setMap(map.getMap());
         isShow = true;
     }
 

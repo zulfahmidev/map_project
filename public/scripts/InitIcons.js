@@ -34,6 +34,7 @@ function initIcons() {
         strokeWeight: 1.0,
         scale: 5.0
     }
+
     pointSelectedIcon = {
         path: google.maps.SymbolPath.CIRCLE,
         fillOpacity: 0.5,
@@ -43,4 +44,5 @@ function initIcons() {
         strokeWeight: 1.0,
         scale: 5.0
     }
+    
 }

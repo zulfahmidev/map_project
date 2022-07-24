@@ -46,6 +46,18 @@ const GMap = function(selector, dlat, dlng) {
                 let graph = nodeSelected.graph;
                 graph.addPoint(e.latLng);
             }
+
+            if (mode.has('set_position')) {
+                Algorithm.setUserPosition(e.latLng);
+                mode.deactivateMode('set_position');
+                btnSetPosition.deactivated();
+            }
+            
+            if (mode.has('set_destination')) {
+                Algorithm.setDestinationPosition(e.latLng);
+                mode.deactivateMode('set_destination');
+                btnSetDestination.deactivated();
+            }
     
         })
     }
