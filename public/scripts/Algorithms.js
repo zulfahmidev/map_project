@@ -1,7 +1,8 @@
 
 let cache = {
     nodes: [],
-    lines: []
+    lines: [],
+    graphs: [],
 }
 
 function reset() {
@@ -13,12 +14,15 @@ function reset() {
     })
     cache.nodes = []; 
     cache.lines = []; 
+    cache.graphs.forEach(v => {
+        v.hide();
+    })
 }
 
 function Dijkstra(from, to) {
     reset();
-    node_start = Nodes.getNearNode(from);
-    node_end = Nodes.getNearNode(to);
+    node_start = Nodes.getNode(from);
+    node_end = Nodes.getNode(to);
     let openSet = [];
     let closedSet = [];
 
@@ -48,7 +52,7 @@ function Dijkstra(from, to) {
             coloredLine(path.reverse(), node_end);
             openSet = [];
             // return 'DONE';
-            console.log(path.reverse())
+            console.log('DONE')
         }
 
         openSet = rmNode(openSet, current.getId());
@@ -117,6 +121,7 @@ function Dijkstra(from, to) {
         }
         cache.graphs = graphs;
         graphs.forEach(v => {
+            cache.graphs.push(v);
             v.show();
         })
     }

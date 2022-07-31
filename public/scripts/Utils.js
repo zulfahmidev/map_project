@@ -1,3 +1,4 @@
+let tempnode_id = 1;
 let Utils = {
     distanceTo: (lat1, lon1, lat2, lon2) => {
         var R = 6378.137; // Radius of earth in KM
@@ -12,26 +13,38 @@ let Utils = {
     },
 
     splitGraph: (position) => {
+
         let point = Graphs.getNearPoint(position);
-
+        
         if (point) {
-            let nodes = [...Nodes.getNodes()];
-            let new_node = new Node('tempnode', {lat: point.position.lat(), lng: point.position.lng()});
-            nodes.push(new_node);
-            Nodes.setTempNodes(nodes);
+            let pp = point.position;
+            let np = point.node.getPosition();
+            if (pp.lat() == np.lat && pp.lng() == np.lng) {
+                return point.node.getId();
+            } else {
+                let nodes = [...Nodes.getNodes()];
+                let new_node = new Node('tempnode_'+tempnode_id, {lat: point.position.lat(), lng: point.position.lng()});
+                nodes.push(new_node);
+                Nodes.setTempNodes(nodes);
+    
+                let graph = point.graph;
+                graph.setVisible(false);
+                let graphs = [...Graphs.getGraphs()].filter((v) => {
+                    return v.getId() != graph.getId();
+                });
+                let ftf = graph.getPoints().map(v => {
+                    return {lat: v.getPosition().lat(), lng: v.getPosition().lng()}
+                });
+                let ftd = ftf.splice(0, point.index+1);
+                graphs.push(new Graph('tempnode_'+tempnode_id, ftf, graph.getNodes()[1].getId()));
+                graphs.push(new Graph('tempnode_'+tempnode_id, ftd, graph.getNodes()[0].getId()));
+                Graphs.setTempGraphs(graphs);
+                tempnode_id++;
 
-            let graph = point.graph;
-            graph.setVisible(false);
-            let graphs = [...Graphs.getGraphs()].filter((v) => {
-                return v.getId() != graph.getId();
-            });
-            let ftf = graph.getPoints().map(v => {
-                return {lat: v.getPosition().lat(), lng: v.getPosition().lng()}
-            });
-            let ftd = ftf.splice(0, point.index+1);
-            graphs.push(new Graph('tempnode', ftf, graph.getNodes()[1].getId()));
-            graphs.push(new Graph('tempnode', ftd, graph.getNodes()[0].getId()));
-            Graphs.setTempGraphs(graphs);
+                return new_node.getId();
+            }
+
         }
+        return null;
     }
 }

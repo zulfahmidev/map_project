@@ -51,16 +51,29 @@ const GMap = function(selector, dlat, dlng) {
                 Algorithm.setUserPosition(e.latLng);
                 mode.deactivateMode('set_position');
                 btnSetPosition.deactivated();
+                
+                if (Algorithm.getUserPosition() != null && Algorithm.getDestinationPosition() != null) {
+                    btnStartFindPath.enabled();
+                }
+                
+                if (Algorithm.getUserPosition() != null || Algorithm.getDestinationPosition() != null) {
+                    btnReset.enabled();
+                }
             }
             
             if (mode.has('set_destination')) {
                 Algorithm.setDestinationPosition(e.latLng);
                 mode.deactivateMode('set_destination');
                 btnSetDestination.deactivated();
+                
+                if (Algorithm.getUserPosition() != null && Algorithm.getDestinationPosition() != null) {
+                    btnStartFindPath.enabled();
+                }
+                
+                if (Algorithm.getUserPosition() != null || Algorithm.getDestinationPosition() != null) {
+                    btnReset.enabled();
+                }
             }
-            
-            // console.log(e.latLng)
-            // Utils.splitGraph({lat: e.latLng.lat(), lng: e.latLng.lng()});
     
         })
     }

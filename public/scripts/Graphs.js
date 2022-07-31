@@ -28,8 +28,6 @@ const Graphs = new function() {
 
     this.getNearPoint = (position) => {
         let node = Nodes.getNearNode(position);
-
-        // node.getNode().setIcon(nodeSelectedIcon);
         
         let nearPoint = null;
         let distance = 0;
@@ -42,6 +40,7 @@ const Graphs = new function() {
                 nearPoint = np;
             }
         })
+        if (nearPoint) nearPoint.node = node;
         return nearPoint;
     }
 

@@ -13,28 +13,48 @@ function Button(el, onActivated = null, onDeactivated = null, isActivated = fals
         return el;
     }
 
+    this.isDisabled = () => {
+        return element.hasClass('disabled');
+    }
+
     this.isActivated = () => {
-        return isActivated;
+        return element.hasClass('active');
     }
 
     this.activated = () => {
-        isActivated = true;
-        element.addClass('active');
-        if (onActivated) onActivated(element);
+        if (!this.isDisabled()) {
+            element.addClass('active');
+            if (onActivated) onActivated(element);
+        }
+    }
+
+    this.enabled = () => {
+        element.removeClass('disabled');
+        if (element.hasClass('static')) {
+            this.activated();
+        }
+    }
+
+    this.disabled = () => {
+        element.addClass('disabled');
+        if (this.isActivated()) this.deactivated();
     }
     
     this.deactivated = () => {
-        isActivated = false;
         element.removeClass('active');
         if (onDeactivated) onDeactivated(element);
     }
     
     this.onClick(() => {
-        if (!isActivated) {
+        if (!this.isActivated()) {
             this.activated();
         }else {
-            this.deactivated();
-            mode.deactivateMode(el);
+            if (!element.hasClass('static')) {
+                this.deactivated();
+                mode.deactivateMode(el);
+            }else {
+                this.disabled();
+            }
         }
     })
 
@@ -112,7 +132,7 @@ let btnSetPosition = new Button("set_position", () => {
 // Button Set Destination
 let btnSetDestination = new Button("set_destination", () => {
     mode.activateMode('set_destination');
-
+    
     btnSetPosition.deactivated();
     mode.deactivateMode('set_position');
 
@@ -122,10 +142,45 @@ let btnSetDestination = new Button("set_destination", () => {
 })
 
 // Button Set Visible Graph
-let btnStartAlgo = new Button("start_algo", () => {
+let btnStartFindPath = new Button("start_find_path", () => {
+
+}, () => {
+    
+    if (btnSetPosition.isActivated()) {
+        btnSetPosition.deactivated();
+        mode.deactivateMode('set_position');
+    }
+    
+    if (btnSetDestination.isActivated()) {
+        btnSetDestination.deactivated();
+        mode.deactivateMode('set_destination');
+    }
+
+    if (Algorithm.getUserPosition() != null && Algorithm.getDestinationPosition() != null) {
+        btnStartFindPath.enabled();
+    }
 
     Algorithm.startFindPath();
-    // map.getMap().setOptions({draggableCursor:'pointer'});
+})
+
+let btnReset = new Button("reset", () => {
+
 }, () => {
-    // map.getMap().setOptions({draggableCursor:'grab'});
+    
+    if (btnSetPosition.isActivated()) {
+        btnSetPosition.deactivated();
+        mode.deactivateMode('set_position');
+    }
+    
+    if (btnSetDestination.isActivated()) {
+        btnSetDestination.deactivated();
+        mode.deactivateMode('set_destination');
+    }
+
+    Algorithm.reset();
+    
+    if (Algorithm.getUserPosition() == null && Algorithm.getDestinationPosition() == null) {
+        btnStartFindPath.disabled();
+    }
+
 })

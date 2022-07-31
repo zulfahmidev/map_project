@@ -30,27 +30,26 @@ const Algorithm = new function() {
 
     this.startFindPath = () => {
         let up = {
-            lat: userPosition.getPosition().lat(),
-            lng: userPosition.getPosition().lng(),
+            lat: this.getUserPosition().position.lat(),
+            lng: this.getUserPosition().position.lng(),
         };
         let dp = {
-            lat: destinationPosition.getPosition().lat(),
-            lng: destinationPosition.getPosition().lng(),
+            lat: this.getDestinationPosition().position.lat(),
+            lng: this.getDestinationPosition().position.lng(),
         };
 
-        // let graphup_points.splice()
-        
+        up = Utils.splitGraph(up);
+        dp = Utils.splitGraph(dp);
+        Dijkstra(up, dp)
 
-        // Dijkstra({
-        //     lat: userPosition.getPosition().lat(),
-        //     lng: userPosition.getPosition().lng(),
-        // }, {
-        //     lat: destinationPosition.getPosition().lat(),
-        //     lng: destinationPosition.getPosition().lng(),
-        // });
     }
 
     this.reset = () => {
-        
+        if (userPosition) userPosition.setMap(null)
+        if (destinationPosition) destinationPosition.setMap(null)
+        userPosition = null;
+        destinationPosition = null;
+        Nodes.initNodes();
+        Graphs.initGraphs();
     }
 }

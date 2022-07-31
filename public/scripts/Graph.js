@@ -32,7 +32,9 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
     this.hide = () => {
         graph.setOptions({strokeColor: '#1abc9c'});
         if (mode.has('show_graph')) {
-            graph.setVisible(true);
+            graph.setMap(map.getMap());
+        }else {
+            graph.setMap(null);
         }
         isShow = true;
     }

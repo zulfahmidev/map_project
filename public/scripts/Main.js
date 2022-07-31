@@ -1,5 +1,3 @@
-let nodeSelected = null;
-let userPosition = null;
 let targetDestination = null;
 
 // Toast Declarated
