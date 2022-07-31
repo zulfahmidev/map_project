@@ -37,20 +37,28 @@ const Graph = function(from_node_id, path = [], to_node_id = null, id = null) {
         isShow = true;
     }
 
+    this.getPoints = () => {
+        return points;
+    }
+
+    this.getNodes = () => {
+        return [Nodes.getNode(from_node_id), Nodes.getNode(to_node_id)];
+    }
+
     this.getNearPoint = (position) => {
         let nearPoint = null;
         let distance = 0;
-        points.forEach(point => {
+        points.forEach((point, index) => {
+            // console.log(point)
             let newDistance = Utils.distanceTo(point.position.lat(), point.position.lng(), position.lat, position.lng);
             if (newDistance <= distance || distance == 0) {
                 distance = newDistance;
-                nearPoint = point;
+                nearPoint = {
+                    graph: this, index, distance, position: point.getPosition()
+                };
             }
         })
-        return {
-            point: nearPoint,
-            distance
-        };
+        return nearPoint;
     }
 
     this.addPoint = (position) => {

@@ -109,7 +109,7 @@ let btnSetPosition = new Button("set_position", () => {
     map.getMap().setOptions({draggableCursor:'grab'});
 })
 
-// Button Set Visible Graph
+// Button Set Destination
 let btnSetDestination = new Button("set_destination", () => {
     mode.activateMode('set_destination');
 
@@ -119,4 +119,13 @@ let btnSetDestination = new Button("set_destination", () => {
     map.getMap().setOptions({draggableCursor:'pointer'});
 }, () => {
     map.getMap().setOptions({draggableCursor:'grab'});
+})
+
+// Button Set Visible Graph
+let btnStartAlgo = new Button("start_algo", () => {
+
+    Algorithm.startFindPath();
+    // map.getMap().setOptions({draggableCursor:'pointer'});
+}, () => {
+    // map.getMap().setOptions({draggableCursor:'grab'});
 })

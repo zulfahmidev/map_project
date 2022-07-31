@@ -29,13 +29,25 @@ const Algorithm = new function() {
     }
 
     this.startFindPath = () => {
-        Dijkstra({
+        let up = {
             lat: userPosition.getPosition().lat(),
             lng: userPosition.getPosition().lng(),
-        }, {
+        };
+        let dp = {
             lat: destinationPosition.getPosition().lat(),
             lng: destinationPosition.getPosition().lng(),
-        })
+        };
+
+        // let graphup_points.splice()
+        
+
+        // Dijkstra({
+        //     lat: userPosition.getPosition().lat(),
+        //     lng: userPosition.getPosition().lng(),
+        // }, {
+        //     lat: destinationPosition.getPosition().lat(),
+        //     lng: destinationPosition.getPosition().lng(),
+        // });
     }
 
     this.reset = () => {

@@ -1,5 +1,6 @@
 const Graphs = new function() {
     let graphs = [];
+    let tempGraphs = [];
 
     this.getGraphs = (array = false) => {
         return graphs;
@@ -25,22 +26,35 @@ const Graphs = new function() {
         })
     }
 
-    this.getNearPosition = (position) => {
+    this.getNearPoint = (position) => {
         let node = Nodes.getNearNode(position);
 
-        node.getNode().setIcon(nodeSelectedIcon);
+        // node.getNode().setIcon(nodeSelectedIcon);
         
         let nearPoint = null;
         let distance = 0;
 
         node.getGraphs().forEach(graph => {
+            // console.log(position)
             let np = graph.getNearPoint(position);
             if (np.distance <= distance || distance == 0) {
                 distance = np.distance;
-                nearPoint = np.point;
+                nearPoint = np;
             }
         })
         return nearPoint;
+    }
+
+    this.setTempGraphs = (nds) => {
+        tempGraphs = [...graphs];
+        graphs = nds;
+        return {
+            reset: () => {
+                // graphs = tempGraphs;
+                this.initGraphs();
+                tempGraphs = [];
+            }
+        }
     }
 
     this.initGraphs = () => {

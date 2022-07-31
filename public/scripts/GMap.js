@@ -58,6 +58,9 @@ const GMap = function(selector, dlat, dlng) {
                 mode.deactivateMode('set_destination');
                 btnSetDestination.deactivated();
             }
+            
+            // console.log(e.latLng)
+            // Utils.splitGraph({lat: e.latLng.lat(), lng: e.latLng.lng()});
     
         })
     }

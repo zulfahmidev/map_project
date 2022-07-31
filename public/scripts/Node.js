@@ -28,7 +28,10 @@ const Node = function(id, position) {
     }
 
     this.getPosition = () => {
-        return position;
+        return {
+            lat: node.getPosition().lat(),
+            lng: node.getPosition().lng(),
+        };
     }
 
     this.getId = () => {

@@ -1,5 +1,6 @@
 const Nodes = new function() {
     let nodes = [];
+    let tempNodes = [];
 
     this.getNodes = () => {
         return nodes;
@@ -30,6 +31,21 @@ const Nodes = new function() {
                 })
             }
         })
+    }
+
+    this.setTempNodes = (nds) => {
+        if (tempNodes.length == 0) {
+            nodes.forEach(n => tempNodes.push(n));
+        }
+        nodes = nds;
+        return {
+            reset: () => {
+                // nodes = [];
+                // tempNodes.forEach(n => nodes.push(n));
+                tempNodes = [];
+                this.initNodes();
+            }
+        }
     }
 
     this.getNearNode = (position) => {
