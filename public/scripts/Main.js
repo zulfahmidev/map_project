@@ -1,4 +1,4 @@
-let targetDestination = null;
+let nodeSelected = null;
 
 // Toast Declarated
 const Toast = Swal.mixin({
